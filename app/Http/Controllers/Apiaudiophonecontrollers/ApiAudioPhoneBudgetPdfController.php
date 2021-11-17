@@ -369,7 +369,9 @@ class ApiAudioPhoneBudgetPdfController extends Controller
 			$apiaudiophonebudgetsnew->id_apiaudiophoneusers = $id_apiaudiophoneusers;			
 			
 			$apiaudiophonebudgetsnew->id_apiaudiophoneservices = $apiaudiophonebudgets_data['apiaudiophonebudgets_id_service'];			
+			
 			$apiaudiophonebudgetsnew->apiaudiophonebudgets_nameservice = $apiaudiophonebudgets_data['apiaudiophonebudgets_nameservice'];			
+			
 			$apiaudiophonebudgetsnew->apiaudiophonebudgets_client_name = $apiaudiophonebudgets_data['apiaudiophonebudgets_client_name'];			
 			
 			$apiaudiophonebudgetsnew->apiaudiophonebudgets_client_email = $apiaudiophonebudgets_data['apiaudiophonebudgets_client_email'];			
@@ -377,7 +379,6 @@ class ApiAudioPhoneBudgetPdfController extends Controller
 			$apiaudiophonebudgetsnew->apiaudiophonebudgets_client_phone = $apiaudiophonebudgets_data['apiaudiophonebudgets_client_phone'];			
 			
 			$apiaudiophonebudgetsnew->apiaudiophonebudgets_client_social = $apiaudiophonebudgets_data['apiaudiophonebudgets_client_social'];			
-			
 			$apiaudiophonebudgetsnew->apiaudiophonebudgets_total_price = $apiaudiophonebudgets_data['apiaudiophonebudgets_total_price'];			
 			
 			$apiaudiophonebudgetsnew->apiaudiophonebudgets_status = $apiaudiophonebudgets_data['apiaudiophonebudgets_status'];						

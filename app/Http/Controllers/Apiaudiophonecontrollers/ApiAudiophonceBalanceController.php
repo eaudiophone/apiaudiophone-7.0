@@ -1140,6 +1140,10 @@ class ApiAudiophonceBalanceController extends Controller
 
         define('DS', DIRECTORY_SEPARATOR);
 
+        // :::: Iniciamos acumulador de horas por el debe :::: //
+        
+        $acum_hours = 0;
+
         // :::: Obtenemos los datos provenientes del request y el id del cliente a eliminar :::: //
 
         $balance_pdf_generate = $request->all();
@@ -1161,8 +1165,6 @@ class ApiAudiophonceBalanceController extends Controller
         // :::: Generamos el nombre del balance :::: //
 
         $nombre_pdf_balance = 'Bal_'.$nombre_cliente.'_'.$today.'.pdf';
-
-        //dd($nombre_pdf_balance);
 
         // ::::  Generamos el nombre de la carpeta para guardar la subcarpeta :::: //
 
@@ -1213,9 +1215,30 @@ class ApiAudiophonceBalanceController extends Controller
                 // :::: Obtenemos los balances del cliente a reportar :::: //
 
                 $apiaudiophonebalancepdf = ApiAudiophoneBalance::where('id_apiaudiophoneclients', $balance_pdf_id_client)
-                ->orderBy('apiaudiophonebalances_id', 'desc')
+                ->orderBy('apiaudiophonebalances_id', 'asc')
                 ->get();
 
+                // :::: Contamos los elementos del arreglo para usar el valor en el for :::: //
+
+                $apiaudiophonebalancepdf_count = count( $apiaudiophonebalancepdf );
+                
+                // :::: Lógica para sumar las horas laboradas en el debe :::: //
+
+                for ( $i = 0; $i < $apiaudiophonebalancepdf_count; $i++ ) {
+
+
+                    if ( ( $apiaudiophonebalancepdf[$i]['apiaudiophonebalances_haber'] == 0 ) || ( $apiaudiophonebalancepdf[$i]['apiaudiophonebalances_haber'] == null ) ) {
+
+                        $acum_hours = $acum_hours + $apiaudiophonebalancepdf[$i]['apiaudiophonebalances_horlab'];
+                    }
+                }
+
+                // :::: Obtenemos el saldo total del balance, primer registro en el front :::: //
+
+                $indice_saldo_final = $apiaudiophonebalancepdf_count - 1; 
+
+                $saldo_final = $apiaudiophonebalancepdf[$indice_saldo_final]['apiaudiophonebalances_total'];     
+                     
                 // :::: Armamos las variables de salida para tormarlas en el reporte :::: //
 
                 $client_name = $apiaudiophoneclientpdf->apiaudiophoneclients_name;
@@ -1238,6 +1261,8 @@ class ApiAudiophonceBalanceController extends Controller
                     'client_name' => $client_name,
                     'client_ident' => $client_ident,
                     'client_phone' => $client_phone,
+                    'acum_hours' => $acum_hours,
+                    'saldo_final' => $saldo_final,
                     'apiaudiophonebalancepdf' => $apiaudiophonebalancepdf
                     ]
                 )->save($url);

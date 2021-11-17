@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-	
 	<head>
-
 		<!-- META TAGS REQUIRED -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta charset="UTF-8">
-
+		<title>Balance CLiente</title>
 		<style>
 				
 			body
@@ -39,13 +37,19 @@
 			}
 			.imagen
 			{
-				width: 100px;
-				height: 100px;
+				width: 60px;
+				height: 60px;
+				float: right;
 			}
+			.desc {
+				font-size: 16px;
+			}
+
+			.center {
+				text-align: center;
+			}
+
 		</style>
-		
-	<title>Balance CLiente</title>
-	
 	</head>
 	
 	<body>
@@ -56,13 +60,17 @@
 			
 			<div class="container">
 				
-				<img class = "imagen" src="http://localhost/apiaudiophone/assets/img/Estudio.jpg" alt="logo"/>
+				<img 
+					class="imagen" 
+					src="http://localhost/apiaudiophone/resources/views/balanceview/Estudio.jpg" 
+					alt="logo" 
+				/>
 
 				<div class="row">
 					
 					<div class="col-12 col-sm-6">
 						
-						<p>Caracas, {{ $today }}<!-- Variable Fecha del día debe venir del controller--><br/>
+						<p class="desc">Caracas, {{ $today }}<!-- Variable Fecha del día debe venir del controller--><br/>
 						Nombre: {{ $client_name }}<!-- Variable Nombre--><br/>
 						C.I: {{ $client_ident }}<!-- Variable Identificación--><br/>
 						Teléfono: {{ $client_phone }}</p><!-- Variable Teléfono--><br/>
@@ -121,7 +129,10 @@
 		<footer>
 
 			<div class="container">
-		
+				<h5 style="float: right;">
+					Total de horas laboradas: {{ $acum_hours }} <br> <!-- cambiar las horas laboradas -->
+					Saldo: {{ $saldo_final }} <br><br><br> <!-- saldo el ultimo valor del total -->
+				</h5>
 				<h5>Gracias por confiar en Estudios Audiophone S.A.</h5>
 			</div>		
 		</footer>	
