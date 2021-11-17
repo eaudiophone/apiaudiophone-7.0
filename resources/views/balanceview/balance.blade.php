@@ -62,7 +62,7 @@
 				
 				<img 
 					class="imagen" 
-					src="http://localhost/apiaudiophone/resources/views/balanceview/Estudio.jpg" 
+					src="http://localhost/apiaudiophone/assets/img/Estudio.jpg" 
 					alt="logo" 
 				/>
 
